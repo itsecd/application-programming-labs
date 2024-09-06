@@ -1,22 +1,69 @@
 import argparse
 import re
 
-parser = argparse.ArgumentParser()
-parser.add_argument("filename", type=str)
-args = parser.parse_args()
 
-with open(args.filename, "r") as file:
-    text = file.read()
+def get_filename() -> str:
+    """
+    Parses the file name from the command line arguments.
 
-pattern = r"\+7\s+\d{3}"
-codes = re.findall(pattern, text)
+    :return: The file name
+    """
+    parser = argparse.ArgumentParser()
+    parser.add_argument("filename", type=str)
+    return parser.parse_args().filename
 
-codes_dict = dict()
-for i in codes:
-    code = i[i.find("+7") + 2:].strip()
-    if code in codes_dict.keys():
-        codes_dict[code] += 1
-    else:
-        codes_dict[code] = 1
 
-print(f"The most common operator code is {max(codes_dict, key=codes_dict.get)}.")
+def read_file(filename: str) -> str:
+    """
+    Reads the contents of the file.
+    
+    :param filename: The file name
+    :return: The file contents
+    """
+    with open(filename, "r") as file:
+        return file.read()
+
+
+def find_numbers(text: str) -> list:
+    """
+    Finds the country and operator code for each number.
+    
+    :param text: The string to search in
+    :return: The list ot country and operator codes
+    """
+    pattern = r"\+7\s+\d{3}"
+    return re.findall(pattern, text)
+
+
+def find_codes(numbers: list) -> dict:
+    """
+    Finds the dictionary of encountered operator codes with an
+    indication of the number of meetings.
+    
+    :param numbers: The list of numbers
+    :return: The dictionary of encountered operator codes with an
+             indication of the number of meetings
+    """
+    codes_dict = dict()
+    for i in numbers:
+        code = i[i.find("+7") + 2:].strip()
+        if code in codes_dict.keys():
+            codes_dict[code] += 1
+        else:
+            codes_dict[code] = 1
+    return codes_dict
+
+
+def print_most_common(codes_dict: dict):
+    """
+    Prints the most common operator code.
+    
+    :param codes_dict: The dictionary of operator codes with an
+                       indication of the number of meetings
+    """
+    print("The most common operator code is",
+          max(codes_dict, key=codes_dict.get))
+
+
+if __name__ == "__main__":
+    print_most_common(find_codes(find_numbers(read_file(get_filename()))))
