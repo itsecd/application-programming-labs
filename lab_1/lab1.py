@@ -66,4 +66,8 @@ def print_most_common(codes_dict: dict):
 
 
 if __name__ == "__main__":
-    print_most_common(find_codes(find_numbers(read_file(get_filename()))))
+    filename = get_filename()
+    text = read_file(filename)
+    numbers = find_numbers(text)
+    codes = find_codes(numbers)
+    print_most_common(codes)
