@@ -2,12 +2,28 @@ import argparse
 import image_crawler
 import image_iterator
 
-def parse():
+
+def parse() -> list:
+    """
+    Parses the search keyword and the name of the directory
+    where the downloaded images will be saved.
+
+    :return: A list containing the keyword and the name of the directory
+    """
     parser = argparse.ArgumentParser()
-    parser.add_argument("keyword", type=str, help="search keyword (image class)")
-    parser.add_argument("save_dir", type=str, help="the path to the folder to save")
+    parser.add_argument(
+        "keyword",
+        type=str,
+        help="search keyword (image class)"
+    )
+    parser.add_argument(
+        "save_dir",
+        type=str,
+        help="the path to the folder to save"
+    )
     args = parser.parse_args()
     return args.keyword, args.save_dir
+
 
 if __name__ == "__main__":
     keyword, save_dir = parse()
