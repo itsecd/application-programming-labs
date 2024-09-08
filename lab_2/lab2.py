@@ -1,25 +1,21 @@
 import argparse
-from icrawler.builtin import GoogleImageCrawler, BingImageCrawler, FlickrImageCrawler
+import image_crawler
+import image_iterator
 
-parser = argparse.ArgumentParser()
-parser.add_argument("keyword", type=str, help="search keyword (image class)")
-parser.add_argument("path", type=str, help="the path to the folder to save")
-args = parser.parse_args()
-path = args.path
-keyword = args.keyword
+def parse():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("keyword", type=str, help="search keyword (image class)")
+    parser.add_argument("save_dir", type=str, help="the path to the folder to save")
+    args = parser.parse_args()
+    return args.keyword, args.save_dir
 
-google_crawler = GoogleImageCrawler(
-    storage={"root_dir" : path},
-    feeder_threads=1,
-    parser_threads=2,
-    downloader_threads=4
-)
-google_crawler.crawl(keyword=keyword, max_num=1000)
+if __name__ == "__main__":
+    keyword, save_dir = parse()
 
-bing_crawler = BingImageCrawler(
-    storage={"root_dir" : path},
-    feeder_threads=1,
-    parser_threads=2,
-    downloader_threads=4
-)
-bing_crawler.crawl(keyword=keyword, max_num=1000)
+    crawler = image_crawler.ImageCrawler(keyword, save_dir, 1000)
+    crawler.download_images()
+    annotation_file = crawler.create_annotation()
+
+    iterator = image_iterator.ImageIterator(annotation_file)
+    for image_path in iterator:
+        print(image_path)

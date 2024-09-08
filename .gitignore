@@ -1,4 +1,6 @@
-lab_2/images/
+lab_2/imag*/
+*.csv
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
