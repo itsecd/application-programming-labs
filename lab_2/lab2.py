@@ -3,7 +3,7 @@ import image_crawler
 import image_iterator
 
 
-def parse() -> list:
+def parse() -> list[str, str]:
     """
     Parses the search keyword and the name of the directory
     where the downloaded images will be saved.
@@ -24,8 +24,10 @@ def parse() -> list:
     args = parser.parse_args()
     return args.keyword, args.save_dir
 
-
-if __name__ == "__main__":
+def main() -> None:
+    """
+    The main program.
+    """
     keyword, save_dir = parse()
 
     crawler = image_crawler.ImageCrawler(keyword, save_dir, 1000)
@@ -35,3 +37,7 @@ if __name__ == "__main__":
     iterator = image_iterator.ImageIterator(annotation_file)
     for image_path in iterator:
         print(image_path)
+
+
+if __name__ == "__main__":
+    main()

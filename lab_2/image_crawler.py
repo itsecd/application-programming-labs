@@ -7,7 +7,7 @@ class ImageCrawler:
     """
     A class for creating a crawler object.
     """
-    def __init__(self, keyword: str, save_dir: str, num_images: int):
+    def __init__(self, keyword: str, save_dir: str, num_images: int) -> None:
         """
         Sets all necessary attributes for the ImageCrawler object.
 
@@ -25,7 +25,7 @@ class ImageCrawler:
             downloader_threads=4
         )
 
-    def download_images(self):
+    def download_images(self) -> None:
         """
         Downloads images based on a given keyword.
         """

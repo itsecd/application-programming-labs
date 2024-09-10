@@ -5,7 +5,7 @@ class ImageIterator:
     """
     A class for creating an iterator based on downloaded images.
     """
-    def __init__(self, annotation_file: str):
+    def __init__(self, annotation_file: str) -> None:
         """
         Sets all necessary attributes for the ImageIterator object.
 
