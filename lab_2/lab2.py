@@ -24,6 +24,7 @@ def parse() -> list[str, str]:
     args = parser.parse_args()
     return args.keyword, args.save_dir
 
+
 def main() -> None:
     """
     The main program.
