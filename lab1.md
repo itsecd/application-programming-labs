@@ -61,7 +61,7 @@ import argparse
 ```py
 import argparse
 
-parser = argparse.ArgumentParse()  # создание экземпляра парсера
+parser = argparse.ArgumentParser()  # создание экземпляра парсера
 parser.add_argument('name', type=str, help='your name')  # добавление позиционного аргумента командной строки
 args = parser.parse_args()  # парсинг аргументов
 print(f"Hello, {args.name}!")  # использование полученного значения аргумента
