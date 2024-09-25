@@ -10,7 +10,7 @@ def get_filename() -> str:
     parser = argparse.ArgumentParser()
     parser.add_argument('name_file', type=str, help='name file')
     args = parser.parse_args()
-    filename = args.name_file + ".txt"
+    filename = args.name_file
     return filename
 
 
