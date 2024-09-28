@@ -1,7 +1,7 @@
 import re
 import argparse
 
-
+#Функция открытия потока и чтения файла
 def read_file(file) -> list[str]:
     try:
         text_stream = open(file, 'r', encoding="UTF-8")
@@ -12,7 +12,7 @@ def read_file(file) -> list[str]:
     except:
         print("Error open file")
 
-
+#Создание парсера для чтения названия файла нужного для обработки
 def arg_parcer() -> str:
     try:
         parser = argparse.ArgumentParser()
@@ -23,7 +23,7 @@ def arg_parcer() -> str:
     except:
         print("Error parse arg")
 
-
+#Функция обработки файла
 def processing_file(data) -> str:
     try:
         text_pattern = r'Имя: '
