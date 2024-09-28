@@ -61,7 +61,7 @@ def main():
     file_name = arg_parcer()
     data = read_file(file_name)
     answer = processing_file(data)
-    print("The most popular name:", answer)
+    print("The most popular name:", answer) #ответ: Светлана
 
 
 if __name__ == "__main__":
