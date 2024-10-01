@@ -2,43 +2,52 @@ import argparse
 import re
 
 
+
 def get_filename() -> str:
     """
-     Parses the file name from the terminal arguments
-    using the 'argparse' module.
+     Getting the file name from command line arguments using the `argparse` module.
 
-    :return:The file name
+    :return: Name of file
     """
     parser = argparse.ArgumentParser()
     parser.add_argument('filename', type=str, help='name of file')
-    args = parser.parse_args()
+    args = parser.parse_args().filename
     return args
 
 
 def read(filename: str) -> str:
     """
-    Reads the contents of the file.
+    The function opens and reads the contents of the file whose name is passed as a parameter.
 
-    :param filename:The file name
-    :return:The file contents
+    :param filename:Name of file
+    :return:The contents of the file as a string.
     """
-    with open("data.txt","r",encoding="UTF-8") as file:
+    with open(filename,"r",encoding="UTF-8") as file:
         return file.read()
 
-def count_of_men(data:str) -> int:
+def counting_profiles_of_men(data:str) -> list:
     """
-     Using the 're' module, it finds all the men in the list
-    and returns their number.
-    :param data:The file contents
-    :return:The number of male profiles
+     The function finds all profiles of men,using the "re" module
+    :param data:The contents of the file
+    :return:A list of found profiles of men.
     """
-    m_list=re.findall("Пол:\\s*Мужской",data)
+    mlist=re.findall("Пол:\\s*Мужской",data)
+    return mlist
+
+def number_profiles_of_men (m_list:list) -> int:
+    """
+    The function counts the number  profiles of men
+    :param m_list:A list of found profiles of men.
+    :return:the number of profiles of men
+    """
     return len(m_list)
 
 def main():
     filename = get_filename()
     data=read(filename)
-    print("The quantity of men in the file:",count_of_men(data))
+    m_list=counting_profiles_of_men(data)
+    res=number_profiles_of_men (m_list)
+    print("The quantity of men in the file:",res)
 
 if __name__=="__main__":
     main()
