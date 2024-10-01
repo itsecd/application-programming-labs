@@ -3,6 +3,7 @@ import re
 
 
 
+
 def get_filename() -> str:
     """
      Getting the file name from command line arguments using the `argparse` module.
@@ -22,8 +23,12 @@ def read(filename: str) -> str:
     :param filename:Name of file
     :return:The contents of the file as a string.
     """
-    with open(filename,"r",encoding="UTF-8") as file:
-        return file.read()
+    try:
+        with open(filename,"r",encoding="UTF-8") as file:
+            return file.read()
+    except FileNotFoundError:
+        print(f"The file '{filename}' was not found.")
+        exit(1)
 
 def counting_profiles_of_men(data:str) -> list:
     """
@@ -31,8 +36,12 @@ def counting_profiles_of_men(data:str) -> list:
     :param data:The contents of the file
     :return:A list of found profiles of men.
     """
-    mlist=re.findall("Пол:\\s*Мужской",data)
-    return mlist
+    try:
+        mlist=re.findall("Пол:\\s*Мужской",data)
+        return mlist
+    except re.error as e:
+        print(f"A regex error occurred: {e}")
+        exit(1)
 
 def number_profiles_of_men (m_list:list) -> int:
     """
@@ -43,11 +52,10 @@ def number_profiles_of_men (m_list:list) -> int:
     return len(m_list)
 
 def main():
-    filename = get_filename()
-    data=read(filename)
-    m_list=counting_profiles_of_men(data)
-    res=number_profiles_of_men (m_list)
-    print("The quantity of men in the file:",res)
-
+        filename = get_filename()
+        data=read(filename)
+        m_list=counting_profiles_of_men(data)
+        res=number_profiles_of_men (m_list)
+        print("The quantity of men in the file:",res)
 if __name__=="__main__":
     main()
