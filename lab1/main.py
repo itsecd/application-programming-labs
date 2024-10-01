@@ -1,6 +1,7 @@
 import re
 import argparse
 
+
 def get_file_name() -> str:
    """
     Parses the file name from the command line arguments.
@@ -23,7 +24,7 @@ def open_file(namefile: str) -> str :
        return text
 
 
-def separation_text(text: str) -> str:
+def separation_text(text: str) -> list[str]:
    """
           Searches for parser values in the text
           :param text: A line with the words
@@ -34,7 +35,7 @@ def separation_text(text: str) -> str:
    return people
 
 
-def separation_birth(year: str,month: str,day: str) -> str:
+def separation_birth(year: str,month: str,day: str) -> int:
    """
              Check the condition of occurrence of birthdays
              :param text: Year,month,day
@@ -66,7 +67,7 @@ def counting_birth(people: str) -> list[str]:
 
 
 def main():
-   failname = get_file_name()
+   filename = get_file_name()
    text =  open_file()
    separation = separation_text(text)
    Quantity = counting_birth(separation)
