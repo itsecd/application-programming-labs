@@ -30,10 +30,10 @@ def openfile(file_name:str) -> str:
 
 def razdel(text:str)->list[str]:
     """
-    разделяет данные из файла и записывает фамили
-    без учёта рода в names
+    разделяет данные из файла и записывает имена
+    в names
     :param text:данные в виде строки
-    :return:фамилии из анкет
+    :return:имена из анкет
     """
     pattern = r'Имя:\s*([а-яА-ЯёЁ]+)'
     names=re.findall(pattern,text)
@@ -42,9 +42,9 @@ def razdel(text:str)->list[str]:
 
 def popular(name:list):
     """
-    находит самую частоповторяемую фамилию
-    :param name:список фамилий
-    :return:самую частую фамилию
+    находит самое частоповторяемое имя
+    :param name:список имён
+    :return:самое частое имя
     """
     counter=Counter(name)
     return counter
@@ -52,8 +52,8 @@ def popular(name:list):
 
 def vyv(counter)-> None:
     """
-    выводит самую частую фамилию
-    :param counter: фамилия самая частая
+    выводит самое частое имя
+    :param counter: самое частое имя
     :return: none
     """
     print(counter.most_common(1))
