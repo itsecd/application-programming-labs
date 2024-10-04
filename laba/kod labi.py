@@ -1,6 +1,7 @@
 import argparse
 import re
 
+
 def read_file(path: str) -> str:
     """
     Чтение содержимого файла.
@@ -19,7 +20,7 @@ def read_file(path: str) -> str:
 def count_men(data: str) -> int:
     """
     Подсчет количества анкет мужчин в списке.
-    :param data: Список.
+    :param data: Список анкет.
     :return: Количество анкет мужчин.
     """
     try:
@@ -29,33 +30,36 @@ def count_men(data: str) -> int:
     except Exception as exc:
         print(exc)
 
-def main(path: str) -> None:
+
+def get_path() -> str:
     """
-    Выводит количество анкет мужчин в файле по данному адресу
-    :param path: Путь к файлу с анкетами.
+    Получение пути к файлу из консоли.
+    :return: Путь к файлу.
+    """
+    try:
+        parser = argparse.ArgumentParser()
+        parser.add_argument("file_path", type = str,
+                            help = "Path to the file with questionnaires")
+        args = parser.parse_args()
+        return args.file_path
+    except Exception as exc:
+        print(exc)
+
+
+def main() -> None:
+    """
+    Выводит количество анкет мужчин в файле по введенному в консоли адресу
     :return: Количество анкет мужчин.
     """
     try:
+        path = get_path()
         file_data = read_file(path)
         count = count_men(file_data)
         print(f"Количество анкет мужчин в списке = {count}")
     except Exception as exc:
         print(exc)
 
+
 if __name__ == '__main__':
 
-    main("data.txt")
-
-"""
-file = open("data.txt", "r", encoding='utf-8')
-text = file.read()
-file.close()
-pattern = "Пол: Мужской"
-man_count = re.findall(pattern, text)
-print(len(man_count))
-
-
-strings = file.readline()
-print(text)
-
-"""
+    main()
