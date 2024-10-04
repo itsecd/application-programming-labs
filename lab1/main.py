@@ -2,15 +2,15 @@ import re
 import argparse
 
 
-def get_file_name() -> str:
+def parsing() -> str:
    """
-    Parses the file name from the command line arguments.
-    :return:
-    """
+      Parse command line arguments and returns the file name
+      :return: file name
+   """
    parser = argparse.ArgumentParser()
-   parser.add_argument('filename', type=str, help='name of file')
-   args = parser.parse_args().filename
-   return args
+   parser.add_argument('file', type=str, help='The name of the file to analyze')
+   args = parser.parse_args()
+   return args.file
 
 
 def open_file(namefile: str) -> str :
@@ -35,7 +35,7 @@ def separation_text(text: str) -> list[str]:
    return people
 
 
-def separation_birth(year: str,month: str,day: str) -> int:
+def separation_birth(year: int,month: int,day: int) -> int:
    """
              Check the condition of occurrence of birthdays
              :param text: Year,month,day
@@ -67,14 +67,14 @@ def counting_birth(people: str) -> list[str]:
 
 
 def main():
-   filename = get_file_name()
-   text =  open_file()
+   filename = parsing()
+   text =  open_file( filename)
    separation = separation_text(text)
    Quantity = counting_birth(separation)
    print('Количество людей возрастом от 30 до 40 лет:', Quantity)
 
 if __name__ == "__main__":
-    main()
+   main()
 
 
 
