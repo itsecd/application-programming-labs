@@ -11,17 +11,19 @@ def parsers():
     parser.add_argument('name', type=str)  # добавление позиционного аргумента командной строки
     return parser.parse_args().name
 
+
 def read(name : str) -> str:
     """
        Reads the contents of the file.
-       :param filename: The file name
+       :param name: The file name
        :return: The file contents
        """
     with open(name, "r", encoding="utf-8") as file:
-        zov = file.read()
-        return zov
+        filename = file.read()
+        return filename
 
-def countable(OSHA: str):
+
+def countable(data: str):
     """
        Using the 're' module, it finds all the men in the list
        and returns their number.
@@ -29,19 +31,19 @@ def countable(OSHA: str):
        :return: The number of male profiles
        """
     pattern = r"\s?Мужской" # шаблон
-    numbers = re.findall(pattern, OSHA)
+    numbers = re.findall(pattern, data)
     return numbers
+
 
 def main():
     name = parsers()
     try:
-        OSHA = read(name)
-        if len(countable(OSHA)) == 0:
+        data = read(name)
+        if len(countable(data)) == 0:
             print("no one man in file")
-        print("the count of men: ", len(countable(OSHA)))
+        print("the count of men: ", len(countable(data)))
     except FileNotFoundError:
         print(f"File '{name}' not found.")
-
 
 if __name__ == "__main__":
     main()
