@@ -1,8 +1,8 @@
 import argparse
-from collections import Counter
 import os
 import re
 
+from collections import Counter
 
 
 def get()-> str:
@@ -28,8 +28,6 @@ def openfile(file_name: str) -> str:
         return text
     except FileNotFoundError:
         return f"Ошибка: файл '{file_name}' не найден."
-    except Exception as e:
-        return f"Произошла ошибка: {e}"
 
 
 def border(text:str)->list[str]:
@@ -51,7 +49,7 @@ def popular(name:list):
     :return:самое частое имя
     """
     counter=Counter(name)
-    return counter
+    return counter.most_common(1)
 
 
 def main():
@@ -64,7 +62,7 @@ def main():
         text= openfile(file_name)
         name=border(text)
         counter1=popular(name)
-        print(counter1.most_common(1))
+        print(counter1)
     except Exception as e:
         print(f"Произошла ошибка: {e}")
 
