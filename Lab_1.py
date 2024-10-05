@@ -1,6 +1,7 @@
 import argparse
-import re
 import os
+import re
+
 
 
 def file_name() -> str:
@@ -30,42 +31,26 @@ def open_file(file_path: str) -> str:
         raise RuntimeError(f"Ошибка при чтении файла '{file_path}': {e}")
 
 
-
-def search_count_name(human_name: str, text: str) -> int:
+def search_count_name(human_name: str, text: str):
     """
     поиск кол-во имён, совпадающих с введенным пользователем
     :param human_name: имя, введенное пользователем
     :param text: данные в виде строки
     :return: кол-во имён, совпадающих с введенным пользователем
     """
-    return len(re.findall(human_name,text))
-
-
-def print_count(c: int):
-    """
-    выводит кол-во имён, совпадающих с введенным пользователем
-    :param c: кол-во имён, совпадающих с введенным пользователем
-    :return: none
-    """
-    print(c)
+    print(len(re.findall(human_name,text)))
 
 
 def main():
     """
-    поочередно используем функции
-    :return: none
+    :return:
     """
     try:
         args = file_name()
         text = open_file(args.file_name)
-        count = search_count_name(args.human_name, text)
-        print_count(count)
+        search_count_name(args.human_name, text)
     except Exception as e:
         print(f"Произошла ошибка: {e}")
 
 if __name__ == "__main__":
     main()
-
-
-
-
