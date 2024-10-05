@@ -26,7 +26,7 @@ def openfile(file_name: str) -> str:
             text = file.read()
         return text
     except FileNotFoundError:
-        return f"Ошибка: файл '{file_name}' не найден."
+        raise FileNotFoundError(f"Ошибка: файл '{file_name}' не найден.")
 
 
 def border(text:str)->list[str]:
