@@ -8,13 +8,10 @@ def read_file(path: str) -> str:
     :param path: Строковый путь к файлу.
     :return: Содержимое файла в виде строки.
     """
-    try:
-        file = open(path, 'r', encoding='utf-8')
-        file_contents = file.read()
-        file.close()
-        return file_contents
-    except Exception as exc:
-        print(exc)
+    file = open(path, 'r', encoding='utf-8')
+    file_contents = file.read()
+    file.close()
+    return file_contents
 
 
 def count_men(data: str) -> int:
@@ -23,12 +20,9 @@ def count_men(data: str) -> int:
     :param data: Список анкет.
     :return: Количество анкет мужчин.
     """
-    try:
-        pattern = "Пол: Мужской"
-        counter = re.findall(pattern, data)
-        return len(counter)
-    except Exception as exc:
-        print(exc)
+    pattern = "Пол: Мужской"
+    counter = re.findall(pattern, data)
+    return len(counter)
 
 
 def get_path() -> str:
@@ -36,14 +30,11 @@ def get_path() -> str:
     Получение пути к файлу из консоли.
     :return: Путь к файлу.
     """
-    try:
-        parser = argparse.ArgumentParser()
-        parser.add_argument("file_path", type = str,
-                            help = "Path to the file with questionnaires")
-        args = parser.parse_args()
-        return args.file_path
-    except Exception as exc:
-        print(exc)
+    parser = argparse.ArgumentParser()
+    parser.add_argument("file_path", type = str,
+                        help = "Path to the file with questionnaires")
+    args = parser.parse_args()
+    return args.file_path
 
 
 def main() -> None:
