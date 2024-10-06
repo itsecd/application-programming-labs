@@ -16,7 +16,7 @@ def get_filename() -> str:
 def read_file(filename: str) -> str:
     """
     Reads the contents of the file.
-    
+
     :param filename: The file name
     :return: The file contents
     """
@@ -27,7 +27,7 @@ def read_file(filename: str) -> str:
 def find_numbers(text: str) -> list:
     """
     Finds the country and operator code for each number.
-    
+
     :param text: The string to search in
     :return: The list ot country and operator codes
     """
@@ -39,7 +39,7 @@ def find_codes(numbers: list) -> dict:
     """
     Finds the dictionary of encountered operator codes with an
     indication of the number of meetings.
-    
+
     :param numbers: The list of numbers
     :return: The dictionary of encountered operator codes with an
              indication of the number of meetings
@@ -57,7 +57,7 @@ def find_codes(numbers: list) -> dict:
 def print_most_common(codes_dict: dict):
     """
     Prints the most common operator code.
-    
+
     :param codes_dict: The dictionary of operator codes with an
                        indication of the number of meetings
     """
