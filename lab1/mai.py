@@ -72,40 +72,62 @@ def parsing():
     parser = argparse.ArgumentParser(description='Парсинг txt-файла.')
     parser.add_argument('filename', type=str, help='Имя txt-файла для обработки')
     args = parser.parse_args()
-    filename = args.filename
-    return filename
+    name = args.filename
+    return name
 
-try:
-    with open(filename, 'r', encoding='utf-8') as file:
-        text = file.read()
-    #print(text)
+def read(name:str) -> str:
+    with open(name, 'r', encoding='utf-8') as file:
+        filename = file.read()
+        return filename
+
+
+def count_names(data:str):
     pattern = r'Имя:\s*([^\n]+)'
-    names = re.findall(pattern, text)
-    print(names)
-    print(f"Длина массива всех имен: {len(names)}")
+    names = re.findall(pattern, data)
+    return names
 
-    #Выполнение задания варианта
+
+def task_var7(names:str) -> str:
     name_counts = {}
     for i in names:
         if i in name_counts:
-            name_counts[i] +=1
+            name_counts[i] += 1
         else:
             name_counts[i] = 1
 
-    if (len(name_counts)!=0):
-        print(name_counts)
-
+    if (len(name_counts) != 0):
         max_name = max(name_counts, key=name_counts.get)
         count = name_counts[max_name]
-        print(f"Имя, которое встречается чаще всего: {max_name}:{count} раз(а)")
+        string = "Имя, которое встречается чаще всего:" + str(max_name) + ": " + str(count) + " раз(а)"
     else:
-        print("Имена не найдены")
+        string = "Имена не найдены"
+
+    return string
 
 
-except FileNotFoundError:
-    print(f"Файл '{filename}' не найден.")
-except Exception as e:
-    print(f"Произошла ошибка: {e}")
+def main():
+    file = parsing()
+    try:
+        text = read(file)
+        #print(text)
+        print(count_names(text))
+        print(f"Длина массива всех имен: {len(count_names(text))}")
+        # Выполнение задания варианта
+        result = task_var7(count_names(text))
+        print(result)
+
+    except FileNotFoundError:
+        print(f"Файл '{file}' не найден.")
+    except Exception as e:
+        print(f"Произошла ошибка: {e}")
+
+
+if __name__ == "__main__":
+    main()
+
+
+
+
 
 
 
