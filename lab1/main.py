@@ -1,5 +1,6 @@
-import re
 import argparse
+import re
+
 
 #Функция открытия потока и чтения файла
 def read_file(file) -> list[str]:
