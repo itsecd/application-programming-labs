@@ -14,8 +14,6 @@
 
 Ниже описана минимальная теория, которая может пригодиться во время выполнения лабораторной. Более подробную информацию смотрите в лекциях по курсу и в разделе "полезные ссылки".
 
-## Методы работы со строками???
-
 ## Чтение из файла
 
 Для чтения из файла необходимо открыть файловый поток, вызвав функцию `open()`:
@@ -63,7 +61,7 @@ import argparse
 ```py
 import argparse
 
-parser = argparse.ArgumentParse()  # создание экземпляра парсера
+parser = argparse.ArgumentParser()  # создание экземпляра парсера
 parser.add_argument('name', type=str, help='your name')  # добавление позиционного аргумента командной строки
 args = parser.parse_args()  # парсинг аргументов
 print(f"Hello, {args.name}!")  # использование полученного значения аргумента
@@ -79,7 +77,7 @@ print(f"Hello, {args.name}!")  # использование полученног
 Запуск программы:
 
 ```
-my_program.py Ivan
+python my_program.py Ivan
 Hello, Ivan!
 ```
 
@@ -189,11 +187,10 @@ print(parts)
 ```
 
 ## Полезные ссылки
-argparse
-чтение файлов?
-re
-Как загружать на гитхаб?
-Добавить ссылки на лекции
+- [Чтение из файла (doc)](https://docs.python.org/3/tutorial/inputoutput.html#reading-and-writing-files)
+- [argparse (doc)](https://docs.python.org/3/library/argparse.html)
+- [re (doc)](https://docs.python.org/3/library/re.html)
+
 
 # Задание
 ## Общее задание

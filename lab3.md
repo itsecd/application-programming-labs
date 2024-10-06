@@ -85,11 +85,11 @@ plt.show()
 
 ## Полезные ссылки
 
-numpy
-OpenCV
-Skimage?
-matplotlib
-Лекции!
+- [numpy (doc)](https://numpy.org/doc/stable/index.html)
+- [OpenCV (doc)](https://docs.opencv.org/4.x/d6/d00/tutorial_py_root.html)
+- [scikit-image](https://scikit-image.org/docs/stable/)
+- [matplotlib](https://matplotlib.org/stable/index.html)
+
 
 # Задание
 ## Общее задание
