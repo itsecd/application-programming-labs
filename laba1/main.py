@@ -37,8 +37,8 @@ def age(txt: list)->int:
     for text in new_list:
         match = re.search(r'\b(\d{4})\b', text)
         if match:
-            found_year = int(match.group(1))
-            if found_year > 1999:
+            year = int(match.group(1))
+            if year > 1999:
                 count += 1
     return count
 
