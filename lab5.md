@@ -65,9 +65,9 @@ button.clicked.connect(some_function)  # при нажатии на кнопку
 Класс, который позволяет выполнять функции через заданные интервалы времени, что полезно для создания анимации или периодических обновлений интерфейса.
 
 ## Полезные ссылки
-pyqt
-Qt Designer?
-Лекции?
+
+- [PyQt (doc)](https://doc.qt.io/qtforpython-5/contents.html)
+- [Qt Designer](https://doc.qt.io/qt-6/qtdesigner-manual.html)
 
 # Задание
 
