@@ -2,8 +2,17 @@ import argparse
 import re
 
 
-#Функция открытия потока и чтения файла
-def read_file(file) -> list[str]:
+
+def read_file(file: str) -> list[str]:
+    """
+    get data from the file.
+    
+    Parameters:
+    file: str - name of file.
+
+    Returns:
+    All data from file in list[str]
+    """
     try:
         text_stream = open(file, 'r', encoding="UTF-8")
         data = text_stream.readlines()
@@ -13,8 +22,14 @@ def read_file(file) -> list[str]:
     except:
         print("Error open file")
 
-#Создание парсера для чтения названия файла нужного для обработки
+
 def arg_parcer() -> str:
+    """
+    File name parcer.
+    
+    Returns:
+    name of file (from command line) in str
+    """
     try:
         parser = argparse.ArgumentParser()
         parser.add_argument('file_name', type=str,
@@ -24,8 +39,16 @@ def arg_parcer() -> str:
     except:
         print("Error parse arg")
 
-#Функция обработки файла
-def processing_file(data) -> str:
+
+def processing_file(data: list(str)) -> str:
+    """
+    Processing of file:
+    
+    data: list(str) - info from read file
+
+    Returns:
+    The most popular name from file in str
+    """
     try:
         text_pattern = r'Имя: '
         all_names = []
