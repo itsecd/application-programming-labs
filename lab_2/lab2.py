@@ -1,4 +1,5 @@
 import argparse
+
 import image_crawler
 import image_iterator
 
@@ -33,7 +34,7 @@ def main() -> None:
 
     crawler = image_crawler.ImageCrawler(keyword, save_dir, 1000)
     crawler.download_images()
-    annotation_file = crawler.create_annotation()
+    annotation_file = crawler.create_annotation("annotation.csv")
 
     iterator = image_iterator.ImageIterator(annotation_file)
     for image_path in iterator:

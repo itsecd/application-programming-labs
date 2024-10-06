@@ -1,4 +1,4 @@
-from icrawler.builtin import GoogleImageCrawler
+from icrawler.builtin import BingImageCrawler
 import os
 import csv
 
@@ -18,7 +18,7 @@ class ImageCrawler:
         self.keyword = keyword
         self.save_dir = save_dir
         self.num_images = num_images
-        self.crawler = GoogleImageCrawler(
+        self.crawler = BingImageCrawler(
             storage={"root_dir": save_dir},
             feeder_threads=1,
             parser_threads=2,
@@ -31,14 +31,14 @@ class ImageCrawler:
         """
         self.crawler.crawl(keyword=self.keyword, max_num=self.num_images)
 
-    def create_annotation(self) -> str:
+    def create_annotation(self, path) -> str:
         """
         Creates a csv annotation for downloaded files.
 
         :return: The name of the file with the annotation
         """
         images = sorted(os.listdir(self.save_dir))
-        with open("annotation.csv",
+        with open(path,
                   mode="w",
                   newline="",
                   encoding="utf-8") as file:
