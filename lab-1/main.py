@@ -2,8 +2,6 @@ import argparse
 import re
 
 
-
-
 def get_filename() -> str:
     """
      Getting the file name from command line arguments using the `argparse` module.
@@ -12,10 +10,13 @@ def get_filename() -> str:
     """
     parser = argparse.ArgumentParser()
     parser.add_argument('filename', type=str, help='name of file')
-    args = parser.parse_args().filename
-    return args
-
-
+    try:
+        args = parser.parse_args()
+        return args.filename
+    except SystemExit as e:
+        print("Error: The 'filename' argument is required.")
+        parser.print_help()
+        raise e
 def read(filename: str) -> str:
     """
     The function opens and reads the contents of the file whose name is passed as a parameter.
@@ -52,10 +53,12 @@ def number_profiles_of_men (m_list:list) -> int:
     return len(m_list)
 
 def main():
-        filename = get_filename()
-        data=read(filename)
-        m_list=counting_profiles_of_men(data)
-        res=number_profiles_of_men (m_list)
-        print("The quantity of men in the file:",res)
+    filename = get_filename()
+    data=read(filename)
+    m_list=counting_profiles_of_men(data)
+    res=number_profiles_of_men (m_list)
+    print("The quantity of men in the file:",res)
+
+
 if __name__=="__main__":
     main()
