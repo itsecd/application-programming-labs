@@ -43,10 +43,8 @@ def find_female_names_at_a(data: str) -> set:
     for i in profiles:
         if re.search(pattern_female, i) and re.search(pattern_name_at_a, i):
             names += (re.findall(pattern_name_at_a, i))
-    if len(names) == 0:
-        raise ValueError("Not found names")
     for j in range(len(names)):
-        names[j] = names[j][5:]
+        names[j] = re.sub(r"Имя:\s+", "", names[j])
     result = set(names)
     return result
 
