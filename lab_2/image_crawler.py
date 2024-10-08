@@ -36,6 +36,7 @@ class ImageCrawler:
         """
         Creates a csv annotation for downloaded files.
 
+	:param path: The path to the annotation
         :return: The name of the file with the annotation
         """
         images = sorted(os.listdir(self.save_dir))

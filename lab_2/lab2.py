@@ -6,10 +6,10 @@ import image_iterator
 
 def parse() -> tuple[str, str, str]:
     """
-    Parses the search keyword and the name of the directory
-    where the downloaded images will be saved.
+    Parses the search keyword, the name of the directory
+    where the downloaded images will be saved and the name of the annotation.
 
-    :return: A list containing the keyword and the name of the directory
+    :return: A list containing the keyword, the name of the directory and the name of the annotation
     """
     parser = argparse.ArgumentParser()
     parser.add_argument(
