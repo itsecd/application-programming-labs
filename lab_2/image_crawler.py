@@ -1,6 +1,7 @@
-from icrawler.builtin import BingImageCrawler
-import os
 import csv
+import os
+
+from icrawler.builtin import BingImageCrawler
 
 
 class ImageCrawler:
@@ -31,7 +32,7 @@ class ImageCrawler:
         """
         self.crawler.crawl(keyword=self.keyword, max_num=self.num_images)
 
-    def create_annotation(self, path) -> str:
+    def create_annotation(self, path: str) -> str:
         """
         Creates a csv annotation for downloaded files.
 

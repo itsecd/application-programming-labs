@@ -4,7 +4,7 @@ import image_crawler
 import image_iterator
 
 
-def parse() -> list[str, str]:
+def parse() -> tuple[str, str, str]:
     """
     Parses the search keyword and the name of the directory
     where the downloaded images will be saved.
@@ -22,19 +22,24 @@ def parse() -> list[str, str]:
         type=str,
         help="the path to the folder to save"
     )
+    parser.add_argument(
+        "annotation_file",
+        type=str,
+        help="the path to the annotation"
+    )
     args = parser.parse_args()
-    return args.keyword, args.save_dir
+    return args.keyword, args.save_dir, args.annotation_file
 
 
 def main() -> None:
     """
     The main program.
     """
-    keyword, save_dir = parse()
+    keyword, save_dir, annotation_file = parse()
 
     crawler = image_crawler.ImageCrawler(keyword, save_dir, 1000)
     crawler.download_images()
-    annotation_file = crawler.create_annotation("annotation.csv")
+    annotation_file = crawler.create_annotation(annotation_file)
 
     iterator = image_iterator.ImageIterator(annotation_file)
     for image_path in iterator:
