@@ -20,7 +20,7 @@ def read_file(filename: str) -> str:
     :param filename: The file name
     :return: The file contents
     """
-    with open(filename, "r") as file:
+    with open(filename, "r", encoding="utf-8") as file:
         return file.read()
 
 
@@ -63,11 +63,15 @@ def print_most_common(codes_dict: dict):
     """
     print("The most common operator code is",
           max(codes_dict, key=codes_dict.get))
+    
 
-
-if __name__ == "__main__":
+def main():
     filename = get_filename()
     text = read_file(filename)
     numbers = find_numbers(text)
     codes = find_codes(numbers)
     print_most_common(codes)
+
+
+if __name__ == "__main__":
+    main()
