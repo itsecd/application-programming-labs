@@ -41,19 +41,11 @@ def create_tuple(names: list) -> dict:
     return name_tuple
 
 
-def popular_name(name_tuple: dict) -> str:
+def popular_name(name_tuple: dict[str, int]) -> str:
     """"
     Нахождение самого встречаемого имени (Задание варианта)
     """
-    if len(name_tuple) != 0:
-        max_name = max(name_tuple, key=name_tuple.get)
-        #count = name_tuple[max_name]
-        #result = f"Имя, которое встречается чаще всего: {max_name}: {count} раз(а)"
-        result = str(max_name)
-    else:
-        result = "0"
-
-    return result
+    return max(name_tuple, key=name_tuple.get)
 
 def main():
     file = parsing()
@@ -65,10 +57,8 @@ def main():
         name_dict = create_tuple(names_list)
         print(f"Созданный словарь: \n{name_dict}")
 
-        # Выполнение задания варианта - передаем созданный словарь в popular_name
-        result = popular_name(name_dict)
-
-        if result != "0":
+        if (len(name_dict) != 0):
+            result = popular_name(name_dict)
             print(f"Имя, которое встречается чаще всего: {result}")
         else:
             print("Имена не найдены")
@@ -77,7 +67,6 @@ def main():
         print(f"Файл '{file}' не найден.")
     except Exception as e:
         print(f"Произошла ошибка: {e}")
-
 
 if __name__ == "__main__":
     main()
