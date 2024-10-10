@@ -2,31 +2,36 @@ import argparse
 import re
 
 
-# Парсинг аргументов командной строки
 def parsing():
+    """
+    Парсинг аргументов командной строки
+    """
     parser = argparse.ArgumentParser(description='Парсинг txt-файла.')
     parser.add_argument('filename', type=str, help='Имя txt-файла для обработки')
     args = parser.parse_args()
     name = args.filename
     return name
 
-
-# Создание потока
 def read(name: str) -> str:
+    """
+    Создание потока
+    """
     with open(name, 'r', encoding='utf-8') as file:
         filename = file.read()
         return filename
 
-
-# Подсчет всех имен в файле
 def count_names(data: str):
+    """
+    Подсчет всех имен в файле
+    """
     pattern = r'Имя:\s*([^\n]+)'
     names = re.findall(pattern, data)
     return names
 
-
-# Составление словаря имен с их количеством
 def create_tuple(names: list) -> dict:
+    """
+    Составление словаря имен с их количеством
+    """
     name_tuple = {}
     for i in names:
         if i in name_tuple:
@@ -36,8 +41,10 @@ def create_tuple(names: list) -> dict:
     return name_tuple
 
 
-# Нахождение самого встречаемого имени (Задание варианта)
 def popular_name(name_tuple: dict) -> str:
+    """"
+    Нахождение самого встречаемого имени (Задание варианта)
+    """
     if len(name_tuple) != 0:
         max_name = max(name_tuple, key=name_tuple.get)
         #count = name_tuple[max_name]
@@ -48,8 +55,6 @@ def popular_name(name_tuple: dict) -> str:
 
     return result
 
-
-# Блок мэйн
 def main():
     file = parsing()
     try:
