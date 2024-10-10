@@ -1,5 +1,5 @@
-import re
 import argparse
+import re
 def get_filename() -> str:
     """
     Parses the file name from the command line arguments
@@ -36,7 +36,7 @@ def bd_21century(bd: list)->int:
     :return:The number of people born in 21
     """
     count = 0
-    for i in range(len(bd)-1):
+    for i in range(len(bd)):
         years = int(bd[i].split('.')[2])
         if years>2000:
             count+=1
