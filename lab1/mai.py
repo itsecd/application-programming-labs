@@ -1,73 +1,8 @@
-# import re
-# import argparse
-# print("hello world")
-#
-# # Первый вариант работы с файлом
-# file = open("file_name.txt", "r")
-# a = file.readline()
-# b = file.read()
-# c = file.readlines()
-# file. close()
-#
-# #Второй вариант работы с файлом (автоматом закрывает поток)
-# with open("file_name.txt") as file:
-#     text = file.readlines()
-#
-#
-# parser = argparse.ArgumentParser()
-# parser.add_argument('name', type=str, help='your name')
-# parser.add_argument("-s", "--surname", type=str, help="your surname")
-# args = parser.parse_args()
-# print(f"Hello, {args.name}")
-#
-# if args.surname is not None:
-#     print(f"Hello, {args.name} {args.surname}")
-# else:
-#     print(f"Hello, {args.name}")
-#
-# # Шаблоны, соответствующие одному символу
-# # . - Один любой символ, кроме новой строки \n.
-# # \d - Любая цифра
-# # \s - Любой пробельный символ (пробел, табуляция, конец строки и т.п.)
-# # \w - Любая буква (то, что может быть частью слова), а также цифры и _
-# # [..] - Один из символов в скобках, а также любой символ из диапазона a-b
-# # [^..] - Любой символ, кроме перечисленных
-# #--------------------------------------------------------------------
-# # Квантификаторы (указание количества повторений)
-# # {n} - Ровно n повторений
-# # {m,n} - От m до n повторений включительно
-# # {m,} - Не менее m повторений
-# # {,n} - Не более n повторений
-# # ? - Ноль или одно вхождение, синоним {0,1}
-# # * - Ноль или более, синоним {0,}
-# # + - Одно или более, синоним {1,}
-#
-#
-#
-# text1 = "Список чисел: 123, 456, 789 и 123"  # строка поиска
-# pattern = r'\d+'  # шаблон
-# numbers = re.findall(pattern, text1)
-# print(numbers)
-#
-# text2 = "один, два, три; четыре. пять! шесть"  # строка поиска
-#
-# # Разделяем строку по разделителям: точка с запятой, запятая, точка, восклицательный знак, пробельный символ
-# parts = re.split(r'[;,.!\s]+', text2)
-# print(parts)
-
-# Функции библиотеки re
-# Библиотека re в Python предоставляет функции для работы с регулярными выражениями.
-# re.search(pattern, string) - Найти в строке string первую строчку, подходящую под шаблон pattern;
-# re.fullmatch(pattern, string) - Проверить, подходит ли строка string под шаблон pattern;
-# re.split(pattern, string, maxsplit=0) - Аналог str.split(), только разделение происходит по подстрокам, подходящим под шаблон pattern;
-# re.findall(pattern, string) - Найти в строке string все непересекающиеся шаблоны pattern;
-# re.finditer(pattern, string) - Итератор по всем непересекающимся шаблонам pattern в строке string (выдаются match-объекты);
-# re.sub(pattern, repl, string, count=0) - Заменить в строке string все непересекающиеся шаблоны pattern на repl;
-
-# r'' - буквальное интерпретирование строки
-
-import re
 import argparse
+import re
+
+
+# Парсинг аргументов командной строки
 def parsing():
     parser = argparse.ArgumentParser(description='Парсинг txt-файла.')
     parser.add_argument('filename', type=str, help='Имя txt-файла для обработки')
@@ -75,46 +10,63 @@ def parsing():
     name = args.filename
     return name
 
-def read(name:str) -> str:
+
+# Создание потока
+def read(name: str) -> str:
     with open(name, 'r', encoding='utf-8') as file:
         filename = file.read()
         return filename
 
 
-def count_names(data:str):
+# Подсчет всех имен в файле
+def count_names(data: str):
     pattern = r'Имя:\s*([^\n]+)'
     names = re.findall(pattern, data)
     return names
 
 
-def task_var7(names:str) -> str:
-    name_counts = {}
+# Составление словаря имен с их количеством
+def create_tuple(names: list) -> dict:
+    name_tuple = {}
     for i in names:
-        if i in name_counts:
-            name_counts[i] += 1
+        if i in name_tuple:
+            name_tuple[i] += 1
         else:
-            name_counts[i] = 1
+            name_tuple[i] = 1
+    return name_tuple
 
-    if (len(name_counts) != 0):
-        max_name = max(name_counts, key=name_counts.get)
-        count = name_counts[max_name]
-        string = "Имя, которое встречается чаще всего:" + str(max_name) + ": " + str(count) + " раз(а)"
+
+# Нахождение самого встречаемого имени (Задание варианта)
+def popular_name(name_tuple: dict) -> str:
+    if len(name_tuple) != 0:
+        max_name = max(name_tuple, key=name_tuple.get)
+        #count = name_tuple[max_name]
+        #result = f"Имя, которое встречается чаще всего: {max_name}: {count} раз(а)"
+        result = str(max_name)
     else:
-        string = "Имена не найдены"
+        result = "0"
 
-    return string
+    return result
 
 
+# Блок мэйн
 def main():
     file = parsing()
     try:
         text = read(file)
-        #print(text)
-        print(count_names(text))
-        print(f"Длина массива всех имен: {len(count_names(text))}")
-        # Выполнение задания варианта
-        result = task_var7(count_names(text))
-        print(result)
+        names_list = count_names(text)
+        print(f"Список найденных имен: \n{names_list}")
+        print(f"Длина массива всех имен: {len(names_list)}\n")
+        name_dict = create_tuple(names_list)
+        print(f"Созданный словарь: \n{name_dict}")
+
+        # Выполнение задания варианта - передаем созданный словарь в popular_name
+        result = popular_name(name_dict)
+
+        if result != "0":
+            print(f"Имя, которое встречается чаще всего: {result}")
+        else:
+            print("Имена не найдены")
 
     except FileNotFoundError:
         print(f"Файл '{file}' не найден.")
@@ -124,15 +76,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
-
-
-
-
-
-
-
-
-
