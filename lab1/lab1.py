@@ -1,5 +1,6 @@
 import argparse
 import re
+
 def get_filename() -> str:
     """
     Parses the file name from the command line arguments
@@ -29,6 +30,7 @@ def birthday(text: str)->list:
     pattern = r'\d{2}.\d{2}.\d{4}'
     bd = re.findall(pattern, text)
     return bd
+
 def bd_21century(bd: list)->int:
     """
     Looking for people born in the 21st century
