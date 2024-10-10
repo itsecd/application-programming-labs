@@ -1,5 +1,5 @@
-import re
 import argparse
+import re
 
 def get_file_name() -> str:
     """
@@ -41,7 +41,7 @@ def date_sort(date:list) -> str:
     :return:The number of people born in 21
     """
     count = 0
-    for i in range(len(date)-1):
+    for i in range(len(date)):
         year = int(date[i].split('.')[2])
         if year > 2000:
             count +=1
