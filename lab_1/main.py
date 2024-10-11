@@ -1,5 +1,6 @@
 import math
 import argparse
+import datetime
 import re
 # ввод через Terminal "python main.py data.txt"  или просто через запуск кода
 def get_filename() -> str:
@@ -25,6 +26,7 @@ def read_filename(filename: str) -> str:
     """
     with open(filename, "r", encoding="utf-8") as file:
         return file.read()
+
 def Amount(text: str) -> int:
     """
     Подсчитывает количество людей от 30 до 40.
@@ -32,16 +34,19 @@ def Amount(text: str) -> int:
         text (str): Текст, в котором необходимо выполнить поиск.
     Return:
         int: Количество людей от 30 до 40.
+    pattern:
+        в формате дата.месяц.год
     """
-    pattern = r"\d+"
+    pattern = r"\d\d.\d\d.\d\d\d\d"
     numbers = re.findall(pattern, text)
     count = 0
     for i in numbers:
-        if (999 < int(i) < 3000) and ((2024 - int(i)) >= 30 and (2024 - int(i) <= 40)):
+        birthday = datetime.datetime.now() - datetime.datetime.strptime(i, "%d.%m.%Y")
+        if 30 <= (birthday.days / 365) <= 40:
             count += 1
     return count
 
-def main():
+def main() -> None:
     filename = get_filename()
     text = read_filename(filename)
     print(f"Количество людей от 30 до 40: {Amount(text)}")
