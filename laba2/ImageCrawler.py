@@ -2,6 +2,7 @@ from icrawler.builtin import GoogleImageCrawler
 import csv
 import os
 
+
 def get_images(keyword: str, save_dir: str)->None:
     """
     Downloads images based on keyword to the file save_dir
@@ -37,6 +38,7 @@ def get_files(save_dir: str)->list:
             if file.endswith(".png") or file.endswith("jpg"):
                 image_data.append(file)
     return image_data
+
 
 def annotation(files: list, save_dir: str)->None:
     """

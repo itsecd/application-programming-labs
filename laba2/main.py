@@ -15,6 +15,7 @@ def create_parser():
     args = parser.parse_args()
     return args.keyword, args.save_dir
 
+
 def main():
     create_parser()
     keyword, save_dir = create_parser()
