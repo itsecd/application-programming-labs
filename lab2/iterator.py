@@ -1,5 +1,5 @@
 class ImageIterator:
-    def __init__(self, path) -> None:
+    def __init__(self, path: str) -> None:
         """
         Эта функция выделяет из всей строки абсолютный путь к файлу и заносит его в список.
         :param path: путь к файлу с аннотацией
