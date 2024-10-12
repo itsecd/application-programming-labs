@@ -20,8 +20,8 @@ def read_file(file_name: str) -> str:
     try:
         with open(file_name, 'r', encoding='utf-8') as file:
             return file.read()
-    except FileNotFoundError as e:
-        print(f"Файл не найден: {e}")
+    except:
+        raise FileNotFoundError(f"Файл не найден")
 
 
 def find_female_names(text: str) -> list:
