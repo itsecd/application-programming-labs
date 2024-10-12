@@ -1,6 +1,8 @@
-from icrawler.builtin import GoogleImageCrawler
 import csv
 import os
+import shutil
+
+from icrawler.builtin import GoogleImageCrawler
 
 
 def get_images(keyword: str, save_dir: str)->None:
@@ -9,20 +11,20 @@ def get_images(keyword: str, save_dir: str)->None:
     :param keyword: word on the basis of which the function will download the images
     :param save_dir: the name of the file where images will be downloaded
     """
-    icrawler = GoogleImageCrawler(storage={'root_dir': save_dir})
-    icrawler.crawl(keyword=keyword, max_num=100)
+    try:
+        icrawler = GoogleImageCrawler(storage={'root_dir': save_dir})
+        icrawler.crawl(keyword=keyword, max_num=50)
+    except Exception as e:
+        print(f"The wrong path to the images folder: {e} ")
 
 
 def clear_dir(directory:str)->None:
     """
-    Clears the file where images will be saved if this file is not empty
-    :param directory: the name of the file
+    Clears the folder where images will be saved if this folder is not empty
+    :param directory: the name of the folder
     """
     if os.path.isdir(directory):
-        for filename in os.listdir(directory):
-            file_path = os.path.join(directory, filename)
-            if os.path.isfile(file_path):
-                os.remove(file_path)
+        shutil.rmtree(directory)
     else: pass
 
 
@@ -33,27 +35,35 @@ def get_files(save_dir: str)->list:
     :return: the list of the image names
     """
     image_data = []
-    for root, dirs, files in os.walk(save_dir):
-        for file in files:
-            if file.endswith(".png") or file.endswith("jpg"):
-                image_data.append(file)
-    return image_data
+    try:
+        for root, dirs, files in os.walk(save_dir):
+            for file in files:
+                if file.endswith(".png") or file.endswith("jpg"):
+                    image_data.append(file)
+        return image_data
+    except Exception as e:
+        print(f"An error occurred while accessing the directory: {e} ")
+        return []
 
 
-def annotation(files: list, save_dir: str)->None:
+def annotation(files: list, save_dir: str, filename: str)->None:
     """
     Creates an annotation
     :param files: the list af image names
     :param save_dir: the name of the file where images were saved
+    :param filename: the name of the csv file where will be annotation
     """
-    with open('data.csv',mode='w', newline='',encoding='utf-8') as file:
-        writer = csv.writer(file)
-        writer.writerow(["Absolute path", "Relative path"])
-        directory = []
-        for i in range(len(files)):
-            absolute = os.path.abspath(os.path.join(save_dir, files[i]))
-            directory.append(absolute)
-            relative = os.path.relpath(absolute, start=".")
-            directory.append(relative)
-            writer.writerow(directory)
-            directory.clear()
+    try:
+        with open(filename, mode='w', newline='',encoding='utf-8') as file:
+            writer = csv.writer(file)
+            writer.writerow(["Absolute path", "Relative path"])
+            directory = []
+            for i in range(len(files)):
+                absolute = os.path.abspath(os.path.join(save_dir, files[i]))
+                directory.append(absolute)
+                relative = os.path.relpath(absolute, start=".")
+                directory.append(relative)
+                writer.writerow(directory)
+                directory.clear()
+    except Exception as e:
+        print(f"The wrong path to the csv file: {e} ")
