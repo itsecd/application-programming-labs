@@ -1,5 +1,5 @@
 import os
-import sys
+
 from icrawler.builtin import BingImageCrawler
 
 
@@ -17,17 +17,9 @@ def download_image(dir_name: str,keyw: str,val: int) -> None:
         file_path = os.path.join(dir_name, filename)
         if os.path.isfile(file_path):
             os.remove(file_path)
-    try:
-        google_crawler = BingImageCrawler(
-            feeder_threads=1,
-            parser_threads=2,
-            downloader_threads=4,
-            storage={'root_dir': dir_name,"backend": "FileSystem"})
-        google_crawler.crawl(keyword=keyw, max_num=val)
-        downloaded_images = len(os.listdir(dir_name))
-        if downloaded_images < val:
-            print(f"Загружено изображений: {downloaded_images}. Ожидалось: {val}.")
-        else:
-            print(f"Все {downloaded_images} изображений успешно загружены.")
-    except Exception as e:
-        print(f"Ошибочный путь к папке с изображениями: {e} ")
+    google_crawler = BingImageCrawler(
+        feeder_threads=1,
+        parser_threads=2,
+        downloader_threads=4,
+        storage={'root_dir': dir_name,"backend": "FileSystem"})
+    google_crawler.crawl(keyword=keyw, max_num=val)
