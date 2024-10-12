@@ -21,15 +21,17 @@ def create_parser()->tuple:
 def main():
     create_parser()
     keyword, save_dir, csv_file = create_parser()
-    csv_file += ".csv"
 
-    ImageCrawler.clear_dir(save_dir)
-    ImageCrawler.get_images(keyword, save_dir)
-    ImageCrawler.annotation(ImageCrawler.get_files(save_dir),save_dir, csv_file)
+    try:
+        ImageCrawler.clear_dir(save_dir)
+        ImageCrawler.get_images(keyword, save_dir)
+        ImageCrawler.annotation(ImageCrawler.get_files(save_dir),save_dir, csv_file)
 
-    my_iter = ImageIterator.Iterator(csv_file)
-    for item in my_iter:
-        print(item)
+        my_iter = ImageIterator.Iterator(csv_file)
+        for item in my_iter:
+            print(item)
+    except Exception as e:
+        print(f"An error occurred while accessing the directory: {e} ")
 
 
 if __name__ == "__main__":

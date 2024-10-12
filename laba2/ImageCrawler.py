@@ -11,11 +11,9 @@ def get_images(keyword: str, save_dir: str)->None:
     :param keyword: word on the basis of which the function will download the images
     :param save_dir: the name of the file where images will be downloaded
     """
-    try:
-        icrawler = GoogleImageCrawler(storage={'root_dir': save_dir})
-        icrawler.crawl(keyword=keyword, max_num=50)
-    except Exception as e:
-        print(f"The wrong path to the images folder: {e} ")
+    icrawler = GoogleImageCrawler(storage={'root_dir': save_dir})
+    icrawler.crawl(keyword=keyword, max_num=3)
+
 
 
 def clear_dir(directory:str)->None:
@@ -35,15 +33,11 @@ def get_files(save_dir: str)->list:
     :return: the list of the image names
     """
     image_data = []
-    try:
-        for root, dirs, files in os.walk(save_dir):
-            for file in files:
-                if file.endswith(".png") or file.endswith("jpg"):
-                    image_data.append(file)
-        return image_data
-    except Exception as e:
-        print(f"An error occurred while accessing the directory: {e} ")
-        return []
+    for root, dirs, files in os.walk(save_dir):
+        for file in files:
+            if file.endswith(".png") or file.endswith("jpg"):
+                image_data.append(file)
+    return image_data
 
 
 def annotation(files: list, save_dir: str, filename: str)->None:
@@ -53,17 +47,15 @@ def annotation(files: list, save_dir: str, filename: str)->None:
     :param save_dir: the name of the file where images were saved
     :param filename: the name of the csv file where will be annotation
     """
-    try:
-        with open(filename, mode='w', newline='',encoding='utf-8') as file:
-            writer = csv.writer(file)
-            writer.writerow(["Absolute path", "Relative path"])
-            directory = []
-            for i in range(len(files)):
-                absolute = os.path.abspath(os.path.join(save_dir, files[i]))
-                directory.append(absolute)
-                relative = os.path.relpath(absolute, start=".")
-                directory.append(relative)
-                writer.writerow(directory)
-                directory.clear()
-    except Exception as e:
-        print(f"The wrong path to the csv file: {e} ")
+    with open(filename, mode='w', newline='',encoding='utf-8') as file:
+        writer = csv.writer(file)
+        writer.writerow(["Absolute path", "Relative path"])
+        directory = []
+        for i in range(len(files)):
+            absolute = os.path.abspath(os.path.join(save_dir, files[i]))
+            directory.append(absolute)
+            relative = os.path.relpath(absolute, start=".")
+            directory.append(relative)
+            writer.writerow(directory)
+            directory.clear()
+
