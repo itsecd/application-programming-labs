@@ -3,7 +3,7 @@ import os
 
 def annotation_creation(dir_name:str,annotation_file: str) -> None:
     """
-
+    Функция создает аннотацию, создаётся csv файл, записывается заголовок ('Relative path', 'Absolute path') и заносятся относительный и абсолютный пути.
     :param dir_name: директория с изображениями
     :param annotation_file:csv файл для аннотации
     :return: None
