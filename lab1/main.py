@@ -1,5 +1,7 @@
-import re
 import argparse
+import datetime
+import re
+import os
 
 
 def parsing() -> str:
@@ -35,43 +37,27 @@ def separation_text(text: str) -> list[str]:
    return people
 
 
-def separation_birth(year: int,month: int,day: int) -> int:
-   """
-             Check the condition of occurrence of birthdays
-             :param text: Year,month,day
-             :return:  1 if it fits
-             """
-   count=0
-   if ((1983 == year) and (month >= 9) and (day > 25)):
-      count += 1
-   if (1984 <= year and 1993 >= year):
-      count += 1
-   if ((1994 == year) and (month <= 9) and (day <= 25)):
-      count += 1
-   return count
+def counting_birth(separation: str) -> list[str]:
 
-
-def counting_birth(people: str) -> list[str]:
-   """
-              Divides the date of the birthday into components and goes through all
-               :param text: A line with the words
-               :return: the number of suitable dates
-               """
-   count=0
-   for i in range(len(people) - 1):
-      year = int(people[i].split('.')[2])
-      month = int(people[i].split('.')[1])
-      day = int(people[i].split('.')[0])
-      count+=separation_birth(year,month,day)
-   return count
+   current_date = datetime.datetime.now()
+   b = 0
+   for birthday in birthdays:
+    dt_now = datetime.datetime.now()
+    b=0
+    for birthday in separation:
+       birth_day=datetime.datetime.strptime(birthday,'%d.%m.%Y')
+       age = (current_date - birth_date).days / 365
+       if 30 <= age <= 40:
+          b+=1
+    return b
 
 
 def main():
    filename = parsing()
    text =  open_file( filename)
    separation = separation_text(text)
-   Quantity = counting_birth(separation)
-   print('Количество людей возрастом от 30 до 40 лет:', Quantity)
+   result = counting_birth(separation)
+   print('Количество людей возрастом от 30 до 40 лет:', result)
 
 if __name__ == "__main__":
    main()
