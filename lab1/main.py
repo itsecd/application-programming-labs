@@ -41,12 +41,12 @@ def counting_birth(separation: str) -> list[str]:
 
    current_date = datetime.datetime.now()
    b = 0
-   for birthday in birthdays:
+   for birthday in separation:
     dt_now = datetime.datetime.now()
     b=0
     for birthday in separation:
        birth_day=datetime.datetime.strptime(birthday,'%d.%m.%Y')
-       age = (current_date - birth_date).days / 365
+       age = (current_date - birth_day).days / 365
        if 30 <= age <= 40:
           b+=1
     return b
