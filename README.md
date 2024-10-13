@@ -7,7 +7,7 @@
 [Лабораторная 4](https://github.com/itsecd/application-programming-labs/blob/main/lab4.md) - Анализ и визуализация данных;  
 [Лабораторная 5](https://github.com/itsecd/application-programming-labs/blob/main/lab5.md) - GUI;  
 
-:collision: **Внимательно прочитайте [правила работы с кодом](https://github.com/itsecd/application-programming-labs/discussions/3) перед тем как приступать к выполнению заданий** :collision:
+:collision: **Внимательно прочитайте [правила работы с кодом](https://github.com/itsecd/application-programming-labs/discussions/3) и [правила оформления](https://github.com/itsecd/application-programming-labs/blob/main/lab_guide.md) перед тем как приступать к выполнению заданий** :collision:
 
 ## Правила сдачи лабораторных:
 Для успешной сдачи лабораторной работы необходимо:
