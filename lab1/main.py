@@ -4,7 +4,7 @@ import re
 
 def get_file_name() -> str:
     """
-    считывание имени файл из командной строки
+    Считывание имени файл из командной строки
     :return: имя файла
     """
     parser = argparse.ArgumentParser()  # создание экземпляра парсера
@@ -15,19 +15,13 @@ def get_file_name() -> str:
 
 def read_file(namefile: str) -> str:
     """
-    считывает все содержимое файла в одну строку
+    Считывает все содержимое файла в одну строку
     :param namefile: имя файла
-    :return:
-        - text если нет ошибок
-        - пустой список если есть ошибки, связанные с файлом
+    :return: text
     """
-    try:
-        with open(namefile, mode='r', encoding="utf-8") as file:
-            text = file.read()
-            return text
-    except Exception as e:
-        print(f"Error: {e}")
-        return []
+    with open(namefile, mode='r', encoding="utf-8") as file:
+        text = file.read()
+        return text
 
 
 def split_questionnaires(lines: str) -> list[str]:
@@ -68,7 +62,11 @@ def print_questionnaire(found_list: list[str]) -> None:
 
 def main():
     namefile = get_file_name()
-    text = read_file(namefile)
+    try:
+        text = read_file(namefile)
+    except Exception as e:
+        print(f"Error: {e}")
+        return
     questionnaires = split_questionnaires(text)
     ivanovs_list = search_by_template(questionnaires)
     print_questionnaire(ivanovs_list)
