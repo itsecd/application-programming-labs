@@ -7,6 +7,10 @@ import ImageIterator
 
 
 def get_input_info() -> tuple:
+    """
+    Parsing the arguments of command line
+    :return: tuple of name od directory, request, name of annotation file
+    """
     parser = argparse.ArgumentParser()
     parser.add_argument('name_dir', type=str, help='name dir')
     parser.add_argument('request', type=str, help='request')
@@ -17,6 +21,13 @@ def get_input_info() -> tuple:
 
 
 def download_images(dir_name: str, request: str, maximum: int) -> None:
+    """
+    Downloading images with using icrawler
+    :param dir_name: name of directory to save pictures
+    :param request: keyword for search
+    :param maximum: desired count of pictures
+    :return:
+    """
     google_crawler = BingImageCrawler(
         feeder_threads=1,
         parser_threads=2,
@@ -27,6 +38,12 @@ def download_images(dir_name: str, request: str, maximum: int) -> None:
 
 
 def create_csvfile(dir_name: str, annotation_file: str) -> None:
+    """
+    Creating csv-file with annotation
+    :param dir_name: name of directory with pictures
+    :param annotation_file: name of file to save annotation
+    :return:
+    """
     with open(annotation_file, mode='a', newline='', encoding='utf-8') as file:
         writer = csv.writer(file)
         writer.writerow(["Absolute path", "relative path"])
@@ -38,13 +55,16 @@ def create_csvfile(dir_name: str, annotation_file: str) -> None:
 
 
 def main():
-    dir_name, request, annotation_file = get_input_info()
-    download_images(dir_name, request, 1000)
-    create_csvfile(dir_name, annotation_file)
-    iterator = ImageIterator.ImageIterator(annotation_file)
+    try:
+        dir_name, request, annotation_file = get_input_info()
+        download_images(dir_name, request, 1000)
+        create_csvfile(dir_name, annotation_file)
+        iterator = ImageIterator.ImageIterator(annotation_file)
+        for i in iterator:
+            print(i)
 
-    for i in iterator:
-        print(i)
+    except Exception as e:
+        print(f"Error: {e}")
 
 
 if __name__ == "__main__":
