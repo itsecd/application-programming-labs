@@ -23,7 +23,7 @@ def open_file(namefile:str) -> str:
         return text
 
 
-def birthday(text:str) -> list:
+def find_birthday(text:str) -> list:
      """
      Searches for the births dates of all people
      :param text:The text that we read from the file
@@ -34,7 +34,7 @@ def birthday(text:str) -> list:
      return date
 
 
-def date_sort(date:list) -> str:
+def birthday_sort_XXI(date:list) -> int:
     """
     Looking for people born in the 21st century
     :param date:Array with dates of birth
@@ -43,7 +43,7 @@ def date_sort(date:list) -> str:
     count = 0
     for i in range(len(date)):
         year = int(date[i].split('.')[2])
-        if year > 2000:
+        if year > 2001:
             count +=1
     return count
 
@@ -51,8 +51,8 @@ def date_sort(date:list) -> str:
 def main():
     filename=get_file_name()
     text=open_file(filename)
-    birth = birthday(text)
-    quantities = date_sort(birth)
+    birth = find_birthday(text)
+    quantities = birthday_sort_XXI(birth)
     print(quantities)
 if __name__ == "__main__":
     main()
