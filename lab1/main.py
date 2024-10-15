@@ -1,7 +1,6 @@
 import argparse
 import datetime
 import re
-import os
 
 
 def parsing() -> str:
@@ -15,13 +14,13 @@ def parsing() -> str:
    return args.file
 
 
-def open_file(namefile: str) -> str :
+def open_file(filename) -> str :
     """
        Reading the contents of a file
        :param namefile: The file name
        :return: A string containing data from a file
        """
-    with open(namefile, 'r', encoding='utf=8') as file:
+    with open(filename, 'r', encoding='utf=8') as file:
        text = file.read()
        return text
 
@@ -33,28 +32,46 @@ def separation_text(text: str) -> list[str]:
           :return: A row with birth dates
           """
    pattern = r'\d{2}.\d{2}.\d{4}'
-   people = re.findall(pattern, text)
-   return people
+   date = re.findall(pattern, text)
+   return date
 
 
 def counting_birth(separation: str) -> list[str]:
-
-   current_date = datetime.datetime.now()
    b = 0
    for birthday in separation:
-    dt_now = datetime.datetime.now()
-    b=0
-    for birthday in separation:
-       birth_day=datetime.datetime.strptime(birthday,'%d.%m.%Y')
-       age = (current_date - birth_day).days / 365
-       if 30 <= age <= 40:
-          b+=1
-    return b
+    date_d = datetime.datetime.strptime(birthday, '%d.%m.%Y').date()
+    year = date_d.year
+    day =date_d.day
+    mo = date_d.month
+    if counting_years(day,mo,year)==1:
+        b+=1
+   return b
 
+
+def counting_years(da: int,mo:int,yea:int)->int:
+    current_day = datetime.datetime.now().date()
+    day = current_day.day
+    month = current_day.month
+    c=0
+    """
+    Все работает но через капец какие костыли
+    """
+    if (1985>yea or 1995<yea):
+        c+=0
+    elif (1984<yea and 1994>yea):
+        c+=1
+    elif (1984==yea or 1994==yea) and (month>=mo):
+        c+=1
+    elif (1983==yea) and (month<=mo):
+      c+=1
+    elif (1993==yea) and (month<=mo):
+      c+=1
+
+    return c
 
 def main():
    filename = parsing()
-   text =  open_file( filename)
+   text =  open_file(filename)
    separation = separation_text(text)
    result = counting_birth(separation)
    print('Количество людей возрастом от 30 до 40 лет:', result)
