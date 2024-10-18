@@ -49,7 +49,7 @@ def print_str(dates: list[str]) -> None:
     displays the necessary profiles
     :param dates: list of found profiles
     """
-    if dates == []:
+    if not dates:
         raise Exception("Empty array")
     for i in dates:
         print(i)
