@@ -1,9 +1,9 @@
-import os
 import csv
+import os
 
 
 class ImageIterator:
-    def __init__(self, path):
+    def __init__(self, path: str):
         self.path = path
         self.annotation = self.read_file(self.path)
         self.limit = len(self.annotation)
@@ -20,7 +20,7 @@ class ImageIterator:
         else:
             raise StopIteration
 
-    def read_file(self, path) -> list:
+    def read_file(self, path: str) -> list:
         with open(self.path, mode='r', encoding='utf-8') as file:
             reader = csv.reader(file)
             next(reader)  # skip the header

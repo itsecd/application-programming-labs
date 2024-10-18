@@ -1,9 +1,7 @@
-from icrawler.builtin import BingImageCrawler
-import os.path as op
-import os
-import csv
 import argparse
+from download_image import download_images
 import ImageIterator
+from make_csv import create_csvfile
 
 
 def get_input_info() -> tuple:
@@ -18,40 +16,6 @@ def get_input_info() -> tuple:
     args = parser.parse_args()
     dir_name, request, annotation_file = args.name_dir, args.request, args.annotation_file
     return dir_name, request, annotation_file
-
-
-def download_images(dir_name: str, request: str, maximum: int) -> None:
-    """
-    Downloading images with using icrawler
-    :param dir_name: name of directory to save pictures
-    :param request: keyword for search
-    :param maximum: desired count of pictures
-    :return:
-    """
-    google_crawler = BingImageCrawler(
-        feeder_threads=1,
-        parser_threads=2,
-        downloader_threads=4,
-        storage={'root_dir': dir_name})
-
-    google_crawler.crawl(keyword=request, max_num=maximum)
-
-
-def create_csvfile(dir_name: str, annotation_file: str) -> None:
-    """
-    Creating csv-file with annotation
-    :param dir_name: name of directory with pictures
-    :param annotation_file: name of file to save annotation
-    :return:
-    """
-    with open(annotation_file, mode='a', newline='', encoding='utf-8') as file:
-        writer = csv.writer(file)
-        writer.writerow(["Absolute path", "relative path"])
-        list_of_pictures = os.listdir(dir_name)
-        for i in list_of_pictures:
-            a = op.abspath(op.join(dir_name, i))
-            r = op.relpath(op.join(dir_name, i), start=".")
-            writer.writerow([a, r])
 
 
 def main():
